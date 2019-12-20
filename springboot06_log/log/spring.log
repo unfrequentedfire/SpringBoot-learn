@@ -1,0 +1,27 @@
+2019-12-18 18:03:30.218  INFO 4232 --- [main] c.z.s.Springboot06LogApplication         : Starting Springboot06LogApplication on LAPTOP-5OLQMSL6 with PID 4232 (E:\git_project\springboot06_log\target\classes started by JY in E:\git_project\springboot06_log)
+2019-12-18 18:03:30.220  INFO 4232 --- [main] c.z.s.Springboot06LogApplication         : No active profile set, falling back to default profiles: default
+2019-12-18 18:03:30.900  INFO 4232 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-12-18 18:03:30.912  INFO 4232 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-18 18:03:30.913  INFO 4232 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-18 18:03:31.027  INFO 4232 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-18 18:03:31.027  INFO 4232 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 779 ms
+2019-12-18 18:03:31.155  INFO 4232 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-18 18:03:31.253  INFO 4232 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-12-18 18:03:31.259  INFO 4232 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-12-18 18:03:31.263 ERROR 4232 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2019-12-18 18:03:31.264  INFO 4232 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

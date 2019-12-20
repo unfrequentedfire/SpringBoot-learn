@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.springboot04_mybatis.dao.UserDao" >
+    <insert id="create">
+        insert into user(id,name, age) values(uuid(),#{name}, #{age})
+    </insert>
+
+    <update id="update">
+        update user set name = #{name}, age = #{age}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="findList" resultType="com.zc.springboot04_mybatis.bean.UserBean">
+        select * from user
+    </select>
+    <select id="get" resultType="com.zc.springboot04_mybatis.bean.UserBean">
+        select * from user where id=#{id}
+    </select>
+</mapper>
