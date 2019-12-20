@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  freemarker:
+    enabled: true
+    template-loader-path: classpath:/templates/
+    charset: utf-8
+    suffix: .html
