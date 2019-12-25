@@ -27,10 +27,28 @@
 <#--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
 <script src="${rc.contextPath}/layui/layui.js"></script>
 <script type="text/javascript">
-    let uploadTotal=0;
     layui.use(["layer","form", "upload","jquery","element"],function() {
-        var $ = layui.jquery
-            , upload = layui.upload,element = layui.element;
+        var $=layui.jquery,
+            upload = layui.upload,
+            element = layui.element;
+
+        //创建监听函数
+        var xhrOnProgress=function(fun) {
+            xhrOnProgress.onprogress = fun; //绑定监听
+            //使用闭包实现监听绑
+            return function() {
+                //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
+                var xhr = $.ajaxSettings.xhr();
+                //判断监听函数是否为函数
+                if (typeof xhrOnProgress.onprogress !== 'function')
+                    return xhr;
+                //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
+                if (xhrOnProgress.onprogress && xhr.upload) {
+                    xhr.upload.onprogress = xhrOnProgress.onprogress;
+                }
+                return xhr;
+            }
+        };
 
         //多文件列表示例
         var demoListView = $('#demoList')
@@ -41,8 +59,8 @@
             ,multiple: true
             ,auto: false
             ,bindAction: '#testListAction'
+            ,xhr:xhrOnProgress
             ,choose: function(obj){
-                uploadTotal=uploadTotal+1;
                 var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //读取本地文件
                 obj.preview(function(index, file, result){
@@ -50,7 +68,7 @@
                         ,'<td>'+ file.name +'</td>'
                         ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
                         ,'<td>' +
-                            '<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="uploadProgressBar'+uploadTotal+'">' +
+                            '<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="uploadProgressBar'+index+'">' +
                                 '<div class="layui-progress-bar" lay-percent="0%"></div>' +
                             '</div>' +
                         '</td>'
@@ -80,7 +98,7 @@
                 if(res.code == 0){ //上传成功
                     var tr = demoListView.find('tr#upload-'+ index)
                         ,tds = tr.children();
-                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(2).html('<span style="color: #5FB878;">'+res.message+'</span>');
                     tds.eq(3).html(''); //清空操作
                     return delete this.files[index]; //删除文件队列已经上传成功的文件
                 }
@@ -92,15 +110,11 @@
                 tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
                 tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
             }
-            ,progress:function(value){//上传进度回调 value进度值
-                console.log(uploadTotal);
-                for (let i=1;i<=uploadTotal;i++){
-                    element.progress('uploadProgressBar'+i, value+'%')//设置页面进度条
-                }
+            ,progress:function(index,value){//上传进度回调 value进度值
+                element.progress('uploadProgressBar'+index, value+'%')//设置页面进度条
             }
         });
     });
-
 </script>
 </body>
 </html>

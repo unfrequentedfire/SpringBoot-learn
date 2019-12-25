@@ -1,5 +1,6 @@
 package com.zc.springboot08_upload.controller;
 
+import com.zc.springboot08_upload.utils.ResponseResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,30 +26,27 @@ public class UploadFileController {
         return "upload";
     }
 
-    /*
-     * 文件上传
-     * <p>Title: upload</p>
-     * <p>Description: </p>
-     * @param file
+    /**
+     * 文件上传，保存到自定义文件夹
+     *
+     * @param file MultipartFile
      * @return
      */
     @PostMapping("/test")
     @ResponseBody
-    public Map<String, Object> upload(MultipartFile file){
-        Map<String, Object> result = new HashMap<>();
+    public ResponseResult upload(MultipartFile file){
+        ResponseResult result=ResponseResult.get();
         if (file != null && !file.isEmpty()){
             try {
                 file.transferTo(new File("d:/"+file.getOriginalFilename()));
-                result.put("code", 0);
-                result.put("msg", "success");
+
+                result.success("文件上传成功");
             } catch (IOException e) {
-                result.put("code", -1);
-                result.put("msg", "文件上传出错，请重新上传！");
+                result.error("文件上传失败");
                 e.printStackTrace();
             }
         } else {
-            result.put("code", -1);
-            result.put("msg", "未获取到有效的文件信息，请重新上传!");
+            result.error("未获取到有效的文件信息，请重新上传！");
         }
         return result;
     }
