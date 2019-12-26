@@ -1,6 +1,8 @@
 package com.zc.springboot08_upload.controller;
 
+import com.zc.springboot08_upload.utils.FileUtil;
 import com.zc.springboot08_upload.utils.ResponseResult;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * TODO
@@ -21,6 +21,9 @@ import java.util.Map;
 @Controller
 //@RestController无法返回upload.ftl页面，会显示upload文字
 public class UploadFileController {
+    @Value("${com.zc.savepath}")
+    private String savePath;
+
     @GetMapping("/upload")
     public String index(){
         return "upload";
@@ -38,7 +41,12 @@ public class UploadFileController {
         ResponseResult result=ResponseResult.get();
         if (file != null && !file.isEmpty()){
             try {
-                file.transferTo(new File("d:/"+file.getOriginalFilename()));
+                String file_path=savePath+"\\"+file.getOriginalFilename();
+                if(!FileUtil.makeDirectory(file_path)){
+                    System.out.println("创建文件目录失败！可能已经创建");
+                }
+
+                file.transferTo(new File(FileUtil.toUNIXpath(file_path)));
 
                 result.success("文件上传成功");
             } catch (IOException e) {
