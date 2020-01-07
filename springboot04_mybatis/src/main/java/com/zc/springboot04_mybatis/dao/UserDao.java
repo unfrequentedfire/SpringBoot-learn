@@ -12,7 +12,6 @@ import java.util.List;
  * @author JY
  * @date 2019/12/16 13:55
  */
-@Mapper
 public interface UserDao {
     int create(UserBean bean);
 
