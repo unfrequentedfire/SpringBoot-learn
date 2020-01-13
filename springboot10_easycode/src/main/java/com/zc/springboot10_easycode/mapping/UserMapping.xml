@@ -43,9 +43,9 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into mysql_learn.user(name, age)
-        values (#{name}, #{age})
+    <insert id="insert">
+        insert into mysql_learn.user(id, name, age)
+        values (uuid(),#{name}, #{age})
     </insert>
 
     <!--通过主键修改数据-->

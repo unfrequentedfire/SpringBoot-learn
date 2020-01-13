@@ -7,7 +7,7 @@ import java.util.List;
  * (User)表服务接口
  *
  * @author Jy
- * @since 2020-01-13 09:03:12
+ * @since 2020-01-13 10:17:31
  */
 public interface UserService {
 
@@ -34,7 +34,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User insert(User user);
+    int insert(User user);
 
     /**
      * 修改数据
@@ -42,7 +42,7 @@ public interface UserService {
      * @param user 实例对象
      * @return 实例对象
      */
-    User update(User user);
+    int update(User user);
 
     /**
      * 通过主键删除数据

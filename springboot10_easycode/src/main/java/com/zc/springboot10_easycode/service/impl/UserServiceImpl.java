@@ -12,7 +12,7 @@ import java.util.List;
  * (User)表服务实现类
  *
  * @author Jy
- * @since 2020-01-13 09:03:12
+ * @since 2020-01-13 10:17:32
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -49,9 +49,8 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User insert(User user) {
-        this.userDao.insert(user);
-        return user;
+    public int insert(User user) {
+        return userDao.insert(user);
     }
 
     /**
@@ -61,9 +60,8 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User update(User user) {
-        this.userDao.update(user);
-        return this.queryById(user.getId());
+    public int update(User user) {
+        return userDao.update(user);
     }
 
     /**
