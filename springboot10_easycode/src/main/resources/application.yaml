@@ -1,5 +1,5 @@
 spring:
-  #\u6570\u636E\u5E93\u914D\u7F6E
+  #数据库配置
   datasource:
     url: jdbc:mysql://localhost:3306/mysql_learn?serverTimezone=UTC
     username: root
@@ -7,5 +7,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
-  #\u8BBE\u7F6Emybatis\u6620\u5C04\u6587\u4EF6\u6240\u5728\u8DEF\u5F84
+  #设置mybatis映射文件所在路径
   mapper-locations: classpath*:com/**/mapping/*Mapping.xml
